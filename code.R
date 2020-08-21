@@ -5,7 +5,7 @@ library(tidyr)
 library(ggthemes)
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(hrbrthemes, gganimate)
+pacman::p_load(hrbrthemes, gganimate, ggcorrplot, plotly)
 
 data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
 data <- read.csv(text= data, row.names = 1)
@@ -69,3 +69,33 @@ data %>%
        x="",
        y="Promedio")+
   hrbrthemes::theme_ipsum()
+
+cor(data)%>%
+  ggcorrplot::ggcorrplot(hc.order = TRUE, 
+                         type = "lower", 
+                         lab = TRUE, 
+                         lab_size = 2, 
+                         method="circle", 
+                         colors = c("tomato2", "white", "springgreen3"), 
+                         title="Correlaciones", 
+                         ggtheme=theme_bw)
+
+data_1 <- data%>%
+  select(equipoID, teamsatisfaction1, teamsatisfaction2)%>%
+  mutate(class = ifelse(teamsatisfaction1 - teamsatisfaction2 < 0, "red", "green"))
+
+left_label <- paste(data_1$equipoID)
+right_label <- paste(data_1$equipoID)
+
+p <-  ggplot(data_1) + 
+  geom_segment(aes(x=1, xend=2, y=`teamsatisfaction1`, yend=`teamsatisfaction2`, col=class), 
+               size=.75, show.legend=F)+
+  geom_vline(xintercept=1, linetype="dashed", size=.1) + 
+  geom_vline(xintercept=2, linetype="dashed", size=.1) +
+  scale_color_manual(labels = c("Up", "Down"), 
+                     values = c("green"="#00ba38", "red"="#f8766d")) +
+  labs(x="", y="Team Satisfaction") +  
+  xlim(0, 2) + ylim(1,5)
+
+p <- p + geom_text(label=left_label, y=data_1$teamsatisfaction1, x=rep(1, NROW(data_1)), hjust=2, size=2, angle=20)
+p
