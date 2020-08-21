@@ -5,8 +5,7 @@ library(tidyr)
 library(ggthemes)
 
 data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
-data <- read.csv(text= data)
-data <- data[,-1]
+data <- read.csv(text= data, row.names = 1)
 
 data%>%
   pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
