@@ -183,15 +183,6 @@ data %>%
 ¿Como interactuan los datos entre si? 
 
 ```{r}
-cor(data)%>%
-  ggcorrplot::ggcorrplot(hc.order = TRUE, 
-                         type = "lower", 
-                         lab = TRUE, 
-                         lab_size = 2, 
-                         method="circle", 
-                         colors = c("tomato2", "white", "springgreen3"), 
-                         title="Correlaciones entre las variables", 
-                         ggtheme=theme_bw)
 ```
 
 

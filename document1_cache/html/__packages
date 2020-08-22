@@ -1,0 +1,12 @@
+base
+RCurl
+dplyr
+ggplot2
+tidyr
+ggthemes
+pacman
+hrbrthemes
+gganimate
+ggcorrplot
+plotly
+ggrepel
