@@ -1,0 +1,187 @@
+---
+title: Datos
+subtitle: Cademi
+author:
+  name: Pablo Fernández
+#  affiliation: University | Course code
+# date: "`r format(Sys.time(), '%d %B %Y')`" ## Or "Lecture no."
+output: 
+  html_document:
+    theme: flatly
+    highlight: haddock
+    # code_folding: show
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    keep_md: false
+    keep_tex: false ## Change to true if want keep intermediate .tex file
+    css: preamble.css ## For multi-col environments
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    dev: cairo_pdf
+    # fig_width: 7 ## Optional: Set default PDF figure width
+    # fig_height: 6 ## Optional: Set default PDF figure height
+    includes:
+      in_header: preamble.tex ## For multi-col environments
+    pandoc_args:
+        --template=mytemplate.tex ## For affiliation field. See: https://bit.ly/2T191uZ
+always_allow_html: true
+urlcolor: blue
+mainfont: cochineal
+sansfont: Fira Sans
+monofont: Fira Code ## Although, see: https://tex.stackexchange.com/q/294362
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, dpi=300)
+knitr::opts_chunk$set(message = FALSE)
+
+library(RCurl)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(ggthemes)
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(hrbrthemes, gganimate, ggcorrplot, plotly, ggrepel)
+```
+
+### Datos
+
+Los datos están disponibles en un repo privado en Github, podemos obtenerlos de la sig. manera:
+
+```{r}
+data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
+data <- read.csv(text= data, row.names = 1)
+head(data)
+```
+
+Resumen de la data:
+
+
+```{r}
+data %>%
+  pivot_longer(-equipoID, names_to= "detail", values_to = "values")%>%
+  group_by(detail)%>%
+  summarize(Promedio = mean(values), Mediana = median(values), Max = max(values), Min = min(values))%>%
+  as_tibble()
+```
+
+Y podemos visualizar las estadisticas principales:
+
+```{r}
+data %>%
+  pivot_longer(-equipoID, names_to= "detail", values_to = "values")%>%
+  group_by(detail)%>%
+  summarize(Promedio = mean(values), Mediana = median(values), Max = max(values), Min = min(values))%>%
+  mutate(level = case_when( grepl("eff", detail) ~ 1,
+                            grepl("lea", detail) ~ 2,
+                            grepl("per", detail) ~ 3,
+                            grepl("psy", detail) ~ 4,
+                            grepl("tea", detail) ~ 5))
+```
+
+Y las estadisticas de manera agregada:
+
+```{r}
+data %>%
+  pivot_longer(-equipoID, names_to= "detail", values_to = "values")%>%
+  mutate(level = case_when( grepl("eff", detail) ~ "efficacy",
+                            grepl("lea", detail) ~ "learnbehavior",
+                            grepl("per", detail) ~ "performance",
+                            grepl("psy", detail) ~ "psycsafe",
+                            grepl("tea", detail) ~ "teamsatisfaction"))%>%
+  group_by(level)%>%
+  summarize(Promedio = mean(values), Mediana = median(values), Max = max(values), Min = min(values))
+```
+Y podemos visualizarlo:
+
+```{r}
+data %>%
+  pivot_longer(-equipoID, names_to= "detail", values_to = "values")%>%
+  mutate(level = case_when( grepl("eff", detail) ~ "efficacy",
+                            grepl("lea", detail) ~ "learnbehavior",
+                            grepl("per", detail) ~ "performance",
+                            grepl("psy", detail) ~ "psycsafe",
+                            grepl("tea", detail) ~ "teamsatisfaction"))%>%
+  ggplot()+
+  geom_density(aes(x=values, fill = detail))+
+  theme_classic()+
+  labs(title = "Densidad de los datos",
+       x=" ")
+```
+
+Un poco más ordenado:
+
+```{r}
+data %>%
+  pivot_longer(-equipoID, names_to= "detail", values_to = "values")%>%
+  mutate(level = case_when( grepl("eff", detail) ~ "efficacy",
+                            grepl("lea", detail) ~ "learnbehavior",
+                            grepl("per", detail) ~ "performance",
+                            grepl("psy", detail) ~ "psycsafe",
+                            grepl("tea", detail) ~ "teamsatisfaction"))%>%
+  ggplot()+
+  geom_density(aes(x=values, fill = detail))+
+  labs(title = "Densidad de los datos",
+       x=" ")+
+  facet_wrap(~level)+
+  ggplot2::theme_classic()
+```
+
+"Psycsafe" es el que más presenta varianza, podemos observar con más detalle:
+
+```{r}
+data %>%
+  select(equipoID, starts_with("psy"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "values")%>%
+  group_by(detail)%>%
+  summarize(Promedio = round(mean(values),2), Varianza = round(var(values),2), Mediana = round(median(values),2))
+```
+Volvamos a visualizar:
+
+```{r}
+data %>%
+  select(equipoID, starts_with("psy"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to ="values")%>%
+  mutate( level = case_when(grepl("1", detail) ~ "1",
+                            grepl("2", detail) ~ "2",
+                            grepl("3", detail) ~ "3",
+                            grepl("4", detail) ~ "4",
+                            grepl("5", detail) ~ "5",
+                            grepl("6", detail) ~ "6",
+                            grepl("7", detail) ~ "7"))%>%
+  ggplot()+
+  geom_density(aes(x=values, fill=detail ))+
+  facet_wrap(~level)+
+  ggplot2::theme_classic()+
+  labs(title = "Densidades de Seguridad Psicologica en cada momento")+
+  theme(legend.position = "none")
+```
+```{r}
+data %>%
+  select(equipoID, starts_with("psy"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "values")%>%
+  mutate(equipoID = as.factor(equipoID), level = case_when( grepl("1", detail) ~ "1",
+                            grepl("2", detail) ~ "2",
+                            grepl("3", detail) ~ "3",
+                            grepl("4", detail) ~ "4",
+                            grepl("5", detail) ~ "5",
+                            grepl("6", detail) ~ "6",
+                            grepl("7", detail) ~ "7"))%>%
+  ggplot()+
+  geom_point( aes(x=equipoID, y=values, color=detail))+
+  facet_wrap(~level)+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle=90,
+                                   size = 3.5),
+        legend.position = "none")
+
+```
+
+
+
+
+
+
