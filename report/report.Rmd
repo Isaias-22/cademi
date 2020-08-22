@@ -179,9 +179,3 @@ data %>%
         legend.position = "none")
 
 ```
-
-
-
-
-
-
