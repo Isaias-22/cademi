@@ -84,6 +84,8 @@ data_1 <- data%>%
   select(equipoID, teamsatisfaction1, teamsatisfaction2)%>%
   mutate(class = ifelse(teamsatisfaction1 - teamsatisfaction2 < 0, "red", "green"))
 
+ifelse(data_1$class == "red", paste(data_1$equipoID), 0)
+
 left_label <- paste(data_1$equipoID)
 right_label <- paste(data_1$equipoID)
 
