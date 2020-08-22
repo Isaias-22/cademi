@@ -175,7 +175,25 @@ data %>%
   facet_wrap(~level)+
   theme_classic()+
   theme(axis.text.x = element_text(angle=90,
-                                   size = 3.5),
-        legend.position = "none")
+                                   size = 5),
+        legend.position = "none")+
+  labs(title= "Valores de Seguridad Psicologica por equipo",
+       x="",
+       y="")
 
 ```
+
+¿Como se relacionan los datos entre si?
+
+```{r}
+cor(data)%>%
+  ggcorrplot::ggcorrplot(hc.order = TRUE, 
+                         type = "lower", 
+                         lab = TRUE, 
+                         lab_size = 2, 
+                         method="circle", 
+                         colors = c("tomato2", "white", "springgreen3"), 
+                         title="Correlaciones", 
+                         ggtheme=theme_bw)
+```
+
