@@ -19,8 +19,7 @@ data%>%
   labs(x="Promedio",
        y="",
        title= "Promedio de los valores medidos")+
-  theme(axis.text.x = element_text(angle=90))+
-  theme_tufte()
+  theme(axis.text.x = element_text(angle=90))
 
 data %>%
   select(equipoID, starts_with("pe"))%>%
