@@ -32,6 +32,12 @@ data %>%
   ggplot2::theme_classic()+
   theme(axis.text.x = element_text(angle = 45, size = 5))
 
+## Aggregation of psysafety
 
-
+psysafety <- data %>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "values")%>%
+  transmute(equipoID, detail, values = if_else( grepl("psy", detail), values, 0))%>%
+  filter(values != 0)%>%
+  group_by(equipoID)%>%
+  summarize(psysafety = round(mean(values),2))
 
