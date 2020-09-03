@@ -2,6 +2,9 @@
 
 library(RCurl)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggthemes)
 
 ### Data
 
@@ -10,16 +13,24 @@ data <- read.csv(text= data, row.names = 1)
 
 ### Recode: Psycafe 1, psycafe 3, psycafe 5, ts2.
 
-data %>%
-  mutate(psycsafe1 = case_when(psycsafe1 == 1 ~ 5,
-                               psycsafe1 == 2 ~ 4),
-         psycsafe3 = case_when(psycsafe3 == 1 ~ 5,
-                               psycsafe3 == 2 ~ 4),
-         psycsafe5 = case_when(psycsafe5 == 1 ~ 5,
-                               psycsafe5 == 2 ~ 4),
-         teamsatisfaction2 = case_when(teamsatisfaction2 == 1 ~ 5,
-                                       teamsatisfaction2 == 2 ~ 4))
+data <- data %>%
+  mutate(equipoID = as.factor(equipoID),
+         psycsafe1 = 5 - (psycsafe1 -1),
+         psycsafe3 = 5 - (psycsafe3 -1),
+         psycsafe5 = 5 - (psycsafe5 -1),
+         teamteamsatisfaction2 = 5 - (teamsatisfaction2 -1))
 
+## Visualization
+
+data %>%
+  select(equipoID, starts_with("psy")) %>%
+  mutate(equipoID = as.factor(equipoID))%>%
+  pivot_longer(-equipoID)%>%
+  ggplot()+
+  geom_point(aes(x=equipoID,y=value, color=name))+
+  facet_wrap(~name)+
+  ggplot2::theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, size = 5))
 
 
 
