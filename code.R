@@ -99,4 +99,4 @@ p <-  ggplot(data_1) +
   xlim(0, 2) + ylim(1,5)
 
 p <- p + geom_text(label=left_label, y=data_1$teamsatisfaction1, x=rep(1, NROW(data_1)), hjust=2, size=2, angle=20)
-p
+
