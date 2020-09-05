@@ -29,7 +29,7 @@ data %>%
   ggplot()+
   geom_point(aes(x=equipoID,y=value, color=name))+
   facet_wrap(~name)+
-  ggplot2::theme_classic()+
+  ggplot2::theme_dark()+
   theme(axis.text.x = element_text(angle = 45, size = 5))
 
 ## Aggregation of psysafety
