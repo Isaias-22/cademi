@@ -10,7 +10,8 @@ pacman::p_load(hrbrthemes, gganimate, ggcorrplot, plotly)
 data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
 data <- read.csv(text= data, row.names = 1)
 
-data%>%
+#Mean
+    data%>%
   pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
   group_by(detail)%>%
   summarize(average = mean(value))%>%
@@ -21,6 +22,8 @@ data%>%
        title= "Promedio de los valores medidos")+
   theme(axis.text.x = element_text(angle=90))
 
+#Mean vs Median (Performance)
+    
 data %>%
   select(equipoID, starts_with("pe"))%>%
   pivot_longer(-equipoID, names_to="detail", values_to = "value")%>%
@@ -37,6 +40,91 @@ data %>%
   hrbrthemes::theme_ipsum()+
   theme(axis.text.x = element_text(angle=10))
   
+#Mean VS Median (Psycsafe)
+
+data %>%
+  select(equipoID, starts_with("psy"))%>%
+  pivot_longer(-equipoID, names_to="detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean= mean(value), median=median(value))%>%
+  ggplot()+
+  geom_point(aes(x=detail,y=mean,color="Promedio"))+
+  geom_point(aes(x=detail,y=median,color="Mediana"))+
+  scale_y_continuous(limits = c(0,5))+
+  labs(title="Promedio vs Mediana",
+       x="",
+       y="Promedio",
+       colour=" ")+
+  hrbrthemes::theme_ipsum()+
+  theme(axis.text.x = element_text(angle=10))
+
+#Mean VS Median (Learnbehavior)
+
+data %>%
+  select(equipoID, starts_with("learn"))%>%
+  pivot_longer(-equipoID, names_to="detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean= mean(value), median=median(value))%>%
+  ggplot()+
+  geom_point(aes(x=detail,y=mean,color="Promedio"))+
+  geom_point(aes(x=detail,y=median,color="Mediana"))+
+  scale_y_continuous(limits = c(0,5))+
+  labs(title="Promedio vs Mediana",
+       x="",
+       y="Promedio",
+       colour=" ")+
+  hrbrthemes::theme_ipsum()+
+  theme(axis.text.x = element_text(angle=10))
+
+#Mean VS Median (Efficacy)
+
+data %>%
+  select(equipoID, starts_with("effi"))%>%
+  pivot_longer(-equipoID, names_to="detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean= mean(value), median=median(value))%>%
+  ggplot()+
+  geom_point(aes(x=detail,y=mean,color="Promedio"))+
+  geom_point(aes(x=detail,y=median,color="Mediana"))+
+  scale_y_continuous(limits = c(0,5))+
+  labs(title="Promedio vs Mediana",
+       x="",
+       y="Promedio",
+       colour=" ")+
+  hrbrthemes::theme_ipsum()+
+  theme(axis.text.x = element_text(angle=10))
+
+#Mean VS Median (Teamsatisfaction)
+
+data %>%
+  select(equipoID, starts_with("team"))%>%
+  pivot_longer(-equipoID, names_to="detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean= mean(value), median=median(value))%>%
+  ggplot()+
+  geom_point(aes(x=detail,y=mean,color="Promedio"))+
+  geom_point(aes(x=detail,y=median,color="Mediana"))+
+  scale_y_continuous(limits = c(0,5))+
+  labs(title="Promedio vs Mediana",
+       x="",
+       y="Promedio",
+       colour=" ")+
+  hrbrthemes::theme_ipsum()+
+  theme(axis.text.x = element_text(angle=10))
+
+#Density in General
+
+data %>%
+  select(equipoID, ends_with("1"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  ggplot()+
+  geom_density(aes(x=value, fill=detail))+
+  facet_wrap(~ detail)+
+  hrbrthemes::theme_tinyhand()+
+  labs(title = "Density Facet by Detail")
+
+#Density of Performance.
+
 data %>%
   select(equipoID, starts_with("pe"))%>%
   pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
@@ -48,14 +136,73 @@ data %>%
          fill="Fill:")+
   hrbrthemes::theme_ipsum()
 
+#Density of Psycsafe
+
 data %>%
-  select(equipoID, ends_with("1"))%>%
+  select(equipoID, starts_with("psy"))%>%
   pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
   ggplot()+
-  geom_density(aes(x=value, fill=detail))+
-  facet_wrap(~ detail)+
-  hrbrthemes::theme_tinyhand()+
-  labs(title = "Density Facet by Detail")
+  geom_density(aes(x=value, fill=detail),alpha=0.3)+
+  labs(title = "Density by Psycsafe",
+       x=" ",
+       y="Density",
+       fill="Fill:")+
+  hrbrthemes::theme_ipsum()
+
+#Density of Learnbehavior
+
+data %>%
+  select(equipoID, starts_with("learn"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  ggplot()+
+  geom_density(aes(x=value, fill=detail),alpha=0.3)+
+  labs(title = "Density by Learnbehavior",
+       x=" ",
+       y="Density",
+       fill="Fill:")+
+  hrbrthemes::theme_ipsum()
+
+#Density of Efficacy
+
+data %>%
+  select(equipoID, starts_with("effi"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  ggplot()+
+  geom_density(aes(x=value, fill=detail),alpha=0.3)+
+  labs(title = "Density by Efficacy",
+       x=" ",
+       y="Density",
+       fill="Fill:")+
+  hrbrthemes::theme_ipsum()
+
+#Density of Teamsatisfaction
+
+data %>%
+  select(equipoID, starts_with("team"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  ggplot()+
+  geom_density(aes(x=value, fill=detail),alpha=0.3)+
+  labs(title = "Density by Teamsatisfaction",
+       x=" ",
+       y="Density",
+       fill="Fill:")+
+  hrbrthemes::theme_ipsum()
+
+#Promedio de Conocimiento (Performance)
+
+data %>%
+  select(equipoID, starts_with("per"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean = mean(value))%>%
+  ggplot(aes(x=detail, y=mean))+
+  geom_col()+
+  labs(title="Promedio de Performance",
+       x="",
+       y="Promedio")+
+  hrbrthemes::theme_ipsum()
+
+#Promedio de Seguridad Psicologica (Psycsafe)
 
 data %>%
   select(equipoID, starts_with("psy"))%>%
@@ -68,6 +215,50 @@ data %>%
        x="",
        y="Promedio")+
   hrbrthemes::theme_ipsum()
+
+#Promedio de Comportamiento de Aprendizaje (Learnbehavior)
+
+data %>%
+  select(equipoID, starts_with("learn"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean = mean(value))%>%
+  ggplot(aes(x=detail, y=mean))+
+  geom_col()+
+  labs(title="Promedio de Comportamiento de Aprendizaje",
+       x="",
+       y="Promedio")+
+  hrbrthemes::theme_ipsum()
+
+#Promedio de Eficiencia (Efficacy)
+
+data %>%
+  select(equipoID, starts_with("effi"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean = mean(value))%>%
+  ggplot(aes(x=detail, y=mean))+
+  geom_col()+
+  labs(title="Promedio de Eficiencia",
+       x="",
+       y="Promedio")+
+  hrbrthemes::theme_ipsum()
+
+#Promedio de Satisfaccion de Equipo (Teamsatisfaction)
+
+data %>%
+  select(equipoID, starts_with("team"))%>%
+  pivot_longer(-equipoID, names_to = "detail", values_to = "value")%>%
+  group_by(detail)%>%
+  summarize(mean = mean(value))%>%
+  ggplot(aes(x=detail, y=mean))+
+  geom_col()+
+  labs(title="Promedio de Satisfaccion de Equipo",
+       x="",
+       y="Promedio")+
+  hrbrthemes::theme_ipsum()
+
+#Correlaciones
 
 cor(data)%>%
   ggcorrplot::ggcorrplot(hc.order = TRUE, 
@@ -100,3 +291,4 @@ p <-  ggplot(data_1) +
 
 p <- p + geom_text(label=left_label, y=data_1$teamsatisfaction1, x=rep(1, NROW(data_1)), hjust=2, size=2, angle=20)
 
+p
