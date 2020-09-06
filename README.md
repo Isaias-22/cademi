@@ -17,3 +17,7 @@ En report esta la estructura del reporte 1, el reporte está [aca](https://raw.g
 2.- Segundo pero no menos importante, el lema a utilizar es: K.I.S.S,   "Keep. It. Simple. Stupid.", codigos innecesariamente largos serán eliminados.
 
 3.- Se revisará los commit cada semana.
+
+## 9/5 Repo is close!
+
+> New token for data: [acá](https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZNXLLLB4KGPTP6ICUC7LWLHY)
