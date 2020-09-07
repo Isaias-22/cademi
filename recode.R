@@ -8,7 +8,7 @@ library(ggthemes)
 
 ### Data
 
-data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
+data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZNXLLLB4KGPTP6ICUC7LWLHY")
 data <- read.csv(text= data, row.names = 1)
 
 ### Recode: Psycafe 1, psycafe 3, psycafe 5, ts2.
