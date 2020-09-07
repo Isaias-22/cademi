@@ -36,24 +36,33 @@ data %>%
 
 ## Alpha
 
+# Psysafe data.
 psysafe <- data %>%
   select(starts_with("psy"))
 
-alfa <- alpha(psysafe)
-alfa_raw <- alfa$total$raw_alpha
+# loop
 
-alfa_drop <- alfa$alpha.drop %>%
-  as.data.frame()
+eliminacion <- 0
 
-
-eliminacion <- alfa_drop %>%
+while ( is.na(eliminacion) == F ) {
+  
+  alfa <- alpha(psysafe)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
     select(raw_alpha)%>%
     filter(alfa_raw < raw_alpha)%>%
     row.names()%>%
     head(1)
-  
-psysafe <- psysafe %>%
+  psysafe <- psysafe %>%
     select(-eliminacion)
+  #
+  
+}
 
 ## Aggregation of psysafety
 
