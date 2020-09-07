@@ -5,6 +5,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(ggthemes)
+install.packages("psych")
+library(psych)
 
 ### Data
 
@@ -31,6 +33,27 @@ data %>%
   facet_wrap(~name)+
   ggplot2::theme_classic()+
   theme(axis.text.x = element_text(angle = 45, size = 5))
+
+## Alpha
+
+psysafe <- data %>%
+  select(starts_with("psy"))
+
+alfa <- alpha(psysafe)
+alfa_raw <- alfa$total$raw_alpha
+
+alfa_drop <- alfa$alpha.drop %>%
+  as.data.frame()
+
+
+eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  
+psysafe <- psysafe %>%
+    select(-eliminacion)
 
 ## Aggregation of psysafety
 
