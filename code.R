@@ -7,7 +7,7 @@ library(ggthemes)
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(hrbrthemes, gganimate, ggcorrplot, plotly)
 
-data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZP5VWIKIMLSZYTNRV27JBDCS")
+data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data.csv?token=AKX6XZNXLLLB4KGPTP6ICUC7LWLHY")
 data <- read.csv(text= data, row.names = 1)
 
 #Mean
