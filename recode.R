@@ -5,7 +5,6 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(ggthemes)
-install.packages("psych")
 library(psych)
 
 ### Data
