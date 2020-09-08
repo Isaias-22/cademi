@@ -20,4 +20,4 @@ En RMarkdown Project se encuentra el desarrollo del paper (Estructura).
 
 3.- Se revisará los commit cada semana.
 
-4.- Se usará RmMarkdown para la estructuracion del paper.
+4.- Se usará RMarkdown para la estructuración del paper.
