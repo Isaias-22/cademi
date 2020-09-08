@@ -1,0 +1,19 @@
+---
+title: "Investigation Project"
+author: "CADEMI"
+date: "08-09-2020"
+output: html_document
+---
+
+## Abstract / Resumen.
+### (Keywords).
+
+## Methods.
+
+## Results.
+
+## Discussion.
+
+## Conclusion.
+
+## References.
