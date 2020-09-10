@@ -6,7 +6,7 @@ library(ggthemes)
 library(psych)
 
 ##
-data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/new_data.csv?token=AKX6XZOBX7XIPOGDI3PHOKK7MLDEY")
+data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/new_data.csv?token=AKX6XZNCMS255MOH7SZKJEK7MPYYG")
 data <- read.csv(text= data, row.names = 1)
 ##
 
@@ -17,7 +17,7 @@ psysafe <- data %>%
 
 eliminacion <- 0
 
-while ( is.na(eliminacion) == F ) {
+while ( eliminacion >= 0.70 ) {
   
   alfa <- alpha(psysafe)
   alfa_raw <- alfa$total$raw_alpha
@@ -37,7 +37,7 @@ while ( is.na(eliminacion) == F ) {
   
 }
 
-  psysafe_select <- colnames(psysafe)
+psysafe_select <- colnames(psysafe)
 
 psysafe <- data %>%
   select(equipoID, all_of(psysafe_select))%>%
@@ -52,7 +52,7 @@ learnb <- data %>%
 
 eliminacion <- 0
 
-while ( is.na(eliminacion) == F ) {
+while ( eliminacion >= 0.7 ) {
   
   alfa <- alpha(learnb)
   alfa_raw <- alfa$total$raw_alpha
@@ -72,7 +72,7 @@ while ( is.na(eliminacion) == F ) {
   
 }
 
-  learnb_select <- colnames(learnb)
+learnb_select <- colnames(learnb)
 
 learnb <- data %>%
   select(equipoID, all_of(learnb_select))%>%
@@ -87,7 +87,7 @@ efficacy <- data %>%
 
 eliminacion <- 0
 
-while ( is.na(eliminacion) == F ) {
+while ( eliminacion >= 0.7 ) {
   
   alfa <- alpha(efficacy)
   alfa_raw <- alfa$total$raw_alpha
@@ -121,7 +121,7 @@ team_s <- data %>%
 
 eliminacion <- 0
 
-while ( is.na(eliminacion) == F ) {
+while ( eliminacion >= 0.7 ) {
   
   alfa <- alpha(team_s)
   alfa_raw <- alfa$total$raw_alpha
@@ -161,4 +161,14 @@ data_2 <- full_join(performance, psysafe)
 data_2 <- full_join(data_2,team_s)
 data_2 <- full_join(data_2,learnb)
 data_2 <- full_join(data_2,efficacy)
+
+model_1 <- lm(performance ~ learnbehavior, data_2)
+summary(model_1)
+
+model_2 <- lm(performance ~ psysafe, data_2)
+summary(model_2)
+
+model_3 <- lm(performance ~ efficacy, data_2)
+summary(model_3)
+
 
