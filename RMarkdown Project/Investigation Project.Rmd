@@ -21,6 +21,11 @@ Inicialmente se trabajo en grupos pequeños de 5 a 6 estudiantes. Se recopilaron
 
 La muestra entregada cumplio por completa las expectativas que esperabamos, siendo suficiente para poder medir de buena manera las variabes que se necesitaban en el proyecto.
 
+*Puntos a cambiar (P):
+
+-Si fuera una persona que no se del proyecto y veo esa sección de Metodos, no me queda claro el metodo.
+- Propuesta de orden: i) que metodo se utilizo(encuesta Edmonson 1999), objetivos de ....  i) descripción del ambiente (Universidad, carrera, curso, año del curso, numero de alumnos, cuantos grupos) iii) caracteristicas micro (relación de los alumnos, conocimientos del tema) iv) que tipo de datos disponiamos.
+
 ### Process
 
 ## Results.
