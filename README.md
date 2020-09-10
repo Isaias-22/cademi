@@ -19,5 +19,3 @@ En RMarkdown Project se encuentra el desarrollo del paper (Estructura).
 2.- Segundo pero no menos importante, el lema a utilizar es: K.I.S.S,   "Keep. It. Simple. Stupid.", codigos innecesariamente largos serán eliminados.
 
 3.- Se revisará los commit cada semana.
-
-4.- Se usará RMarkdown para la estructuración del paper.
