@@ -14,10 +14,11 @@ data <- read.csv(text= data, row.names = 1)
 
 psysafe <- data %>%
   select(starts_with("psy"))
+lim <- 0.8
 
 eliminacion <- 0
 
-while ( eliminacion >= 0.70 ) {
+while ( eliminacion < lim ) {
   
   alfa <- alpha(psysafe)
   alfa_raw <- alfa$total$raw_alpha
@@ -52,7 +53,7 @@ learnb <- data %>%
 
 eliminacion <- 0
 
-while ( eliminacion >= 0.7 ) {
+while ( eliminacion < lim ) {
   
   alfa <- alpha(learnb)
   alfa_raw <- alfa$total$raw_alpha
@@ -87,7 +88,7 @@ efficacy <- data %>%
 
 eliminacion <- 0
 
-while ( eliminacion >= 0.7 ) {
+while ( eliminacion < lim ) {
   
   alfa <- alpha(efficacy)
   alfa_raw <- alfa$total$raw_alpha
@@ -121,7 +122,7 @@ team_s <- data %>%
 
 eliminacion <- 0
 
-while ( eliminacion >= 0.7 ) {
+while ( eliminacion < lim ) {
   
   alfa <- alpha(team_s)
   alfa_raw <- alfa$total$raw_alpha
@@ -170,5 +171,3 @@ summary(model_2)
 
 model_3 <- lm(performance ~ efficacy, data_2)
 summary(model_3)
-
-
