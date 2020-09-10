@@ -1,0 +1,37 @@
+---
+title: "Investigation Project"
+author: "CADEMI"
+date: "08-09-2020"
+output: html_document
+---
+
+## Abstract / Resumen.
+### (Keywords).
+
+## Methods.
+
+Para poner a prueba las hipotesis evaluadas en este trabajo, estudiamos el proceso
+real entre los estudiantes de primer año de la carrera de *Ingenieria Comercial* de la *Universidad Diego Portales*. Medimos, en general, datos cuantitativos en cuanto al curso de *Fundamentos de Administracion y Negocios*. Las encuestas fueron repartidas durante el lapso de 5 meses, en distintos periodos de tiempo. Las encuestas se realizaron a traves de los docentes y academicos del curso.
+
+Como primera investigacion, nuestro objetivo desde un inicio era acercarnos a la comunidad estudiantil y lograr un aporte hacia esta, de forma que los datos entregados en este trabajo puedan ayudar en un futuro tanto a la Universidad como a sus estudiantes.
+
+El unico medio directo para estar en contacto con los estudiantes fue a traves de las encuestas realizadas para evaluar las variables. Sin embargo, hemos podido efectuar preguntas mas claras a ciertos estudiantes que han participado en el proceso, de esta forma nos han ayudado a confrimar ciertas dudas y teorias que teniamos al momento de comprobar el trabajo y su proceso metodologico.
+
+Inicialmente se trabajo en grupos pequeños de 5 a 6 estudiantes. Se recopilaron 48 equipos en total, los cuales fueron evaluados en conjunto durante todo el proceso, sin ninguna modificacion o salida de alguno de estos a lo largo del periodo establecido. Al momento de formar los grupos, ninguno de los estudiantes que componian los equipos se conocia o mantenia un lazo interpersonal previa a la conformacion de los grupos de trabajo, es por esto que encontramos una buena idea medir los procesos desde inicio a fin. Nuestro contacto principal fue uno de los profesores decanos de la Universidad y de este curso, de esta manera nos ayudo y facilito ciertos datos utilizados en el trabajo. El total de estudiantes evauados fue de 280 aproximadamente.
+
+La muestra entregada cumplio por completa las expectativas que esperabamos, siendo suficiente para poder medir de buena manera las variabes que se necesitaban en el proyecto.
+
+*Puntos a cambiar (P):
+
+-Si fuera una persona que no se del proyecto y veo esa sección de Metodos, no me queda claro el metodo.
+- Propuesta de orden: i) que metodo se utilizo(encuesta Edmonson 1999), objetivos de ....  ii) descripción del ambiente (Universidad, carrera, curso, año del curso, numero de alumnos, cuantos grupos) iii) caracteristicas micro (relación de los alumnos, conocimientos del tema) iv) que tipo de datos disponiamos.
+
+### Process
+
+## Results.
+
+## Discussion.
+
+## Conclusion.
+
+## References.

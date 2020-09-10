@@ -10,6 +10,8 @@ En recode.R estan los variables con valores cambiados.
 
 En report esta la estructura del reporte 1, el reporte está [aca](https://raw.githack.com/PabloFdezm/cademi/master/report/report.html).
 
+En RMarkdown Project se encuentra el desarrollo del paper (Estructura).
+
 ## Protocol.
 
 1.- Manejo de la base de datos se hace por medio del universo [Tidyverse](https://www.tidyverse.org/). Si no se justifica el no uso de tidyverse codigo será eliminado. 
