@@ -12,6 +12,10 @@ En report esta la estructura del reporte 1, el reporte está [aca](https://raw.g
 
 En RMarkdown Project se encuentra el desarrollo del paper (Estructura).
 
+New_data.csv está la data ajustada por recode.
+
+data_preregression.csv esta la data agregada para su estimación. 
+
 ## Protocol.
 
 1.- Manejo de la base de datos se hace por medio del universo [Tidyverse](https://www.tidyverse.org/). Si no se justifica el no uso de tidyverse codigo será eliminado. 
