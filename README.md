@@ -16,7 +16,7 @@ New_data.csv está la data ajustada por recode.
 
 data_preregression.csv esta la data agregada para su estimación. 
 
-El report 2 se encuentra (aca)[https://rawcdn.githack.com/PabloFdezm/cademi/694ba4c9d2c720b1d81d565bcbb380b4be7783a2/Report%202/Report-2.html]
+El report 2 se encuentra [aca](https://rawcdn.githack.com/PabloFdezm/cademi/694ba4c9d2c720b1d81d565bcbb380b4be7783a2/Report%202/Report-2.html)
 
 ## Protocol.
 
