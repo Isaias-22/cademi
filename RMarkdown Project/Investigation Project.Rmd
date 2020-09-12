@@ -23,9 +23,7 @@ Al ser un curso de primer año universitario, nadie tenia conocimientos teoricos
 
 Analizamos detalladamente el trabajo realizado por -Amy-(Nunca el nombre) Edmonson (1999) -(siempre el año)-, durate un periodo de 5 meses. Mientras se realizaba este proceso, se efectuo tambien la recopilacion de datos a travez de las encuestas realizadas a los estudiantes.
 
-Lo primero fue evaluar las hipotesis a comprobar dentro del proyecto (H1, H2 y H3) -(Insertar referencia a la tabla con las hipotesis)-. Para ello, se diseñaron ciertas preguntas con ayuda de los docentes, acorde a las escalas ya antes previstas -(Insertar referencia a la tabla con las preguntas)-. De esta forma, -fueron siendo entregadas a los estudiantes-(los alumnos son encuentados) a lo largo del tiempo -estimado- (establecido, no estimado: 5 meses) (t). En total se realizaron 3 periodos de encuestas que contenian este tipo de preguntas-(nose si queda claro)-.
-
-
+Lo primero fue evaluar las hipotesis a comprobar dentro del proyecto (H1, H2 y H3) -(Insertar referencia a la tabla con las hipotesis)-. Para ello, se diseñaron ciertas preguntas con ayuda de los docentes, acorde a las escalas ya antes previstas -(Insertar referencia a la tabla con las preguntas)-. De esta forma, los alumnos fueron encuentados a lo largo del tiempo establecido, 5 meses (t). En total se realizaron 3 periodos de encuestas que contenian este tipo de preguntas-(nose si queda claro)-.
 
 ## Results.
 
