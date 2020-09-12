@@ -58,6 +58,11 @@ knitr::kable(data) #Tabla Data
 ```
 
 ## Abstract / Resumen.
+## Introduction.
+
+-(Explicar las variables a evaluar, las hipotesis a comprobar)-
+-(Tabla de resultados resumida (Promedios, mediana, y otros))-
+
 #### (Keywords).
 
 ## Methods.
@@ -68,24 +73,19 @@ Estudiamos el proceso entre los estudiantes de primer año de la carrera de *Ing
 
 Al ser un curso de primer año universitario, nadie tenia conocimientos teoricos previos en cuanto a trabajo en equipo, liderazgo o administracion. Ademas, recalcar que ninguno de los estudiantes mantenia una relacion estrecha entre sus pares o academicos de la facultad, previa la investigacion realizada. El unico medio de interaccion que tuvimos con los estudiantes a lo largo del proyecto fueron netamente las respuestas otorgadas a traves de las encuestas.
 
--(¿Hay alguna libreria que nos ayude a corregir las reglas gramaticales en español?)-
--P: Ni idea, en cuantos más estas acostumbrado a la literatura academica, más sueles redactar como academico.-
-
-
 ### Process
 
-Analizamos detalladamente el trabajo realizado por -Amy-(Nunca el nombre) Edmonson (1999) -(siempre el año)-, durate un periodo de 5 meses. Mientras se realizaba este proceso, se efectuo tambien la recopilacion de datos a travez de las encuestas realizadas a los estudiantes.
+Analizamos detalladamente el trabajo realizado por Edmonson(1999), durante un periodo de 5 meses. Mientras se realizaba este proceso, se efectuo tambien la recopilacion de datos a travez de las encuestas realizadas a los estudiantes.
 
-Lo primero fue evaluar las hipotesis a comprobar dentro del proyecto (H1, H2 y H3) -(Insertar referencia a la tabla con las hipotesis)-. Para ello, se diseñaron ciertas preguntas con ayuda de los docentes, acorde a las escalas ya antes previstas -(Insertar referencia a la tabla con las preguntas)-. De esta forma, los alumnos fueron encuentados a lo largo del tiempo establecido, 5 meses (t). En total se realizaron 3 periodos de encuestas que contenian este tipo de preguntas-(nose si queda claro)-.
-
+Lo primero fue evaluar las hipotesis a comprobar dentro del proyecto (H1, H2 y H3) -(Insertar referencia a la tabla con las hipotesis)-. Para ello, se diseñaron ciertas preguntas con ayuda de los docentes, acorde a las escalas ya antes previstas -(Insertar referencia a la tabla con las preguntas)-. De esta forma, los alumnos fueron encuentados a lo largo del tiempo establecido, 5 meses (t). En total se realizaron 3 periodos de encuestas que contenian este tipo de preguntas.
 
 ### Measurements
 
-Alfa de Chronbach e intercorrelaciones entre las variables de las encuestas a nivel de grupo. -(¿Lo dejamos?)-. -(variables que se separaron en el Alfa de Chronbach)-
+Alfa de Chronbach e intercorrelaciones entre las variables de las encuestas a nivel de grupo. -(¿Lo dejamos?)-. -(variables que se separaron en el Alfa de Chronbach)-. Usamos la encuesta de escalas desarrollado por -(Nombre de la Encuesta)-. 
 
-<CENTER>Alfa de Chronbach. (Tabla)
+<CENTER>Alfa de Chronbach. (Tabla) -(Describir e interpretar la Tabla de Alfa)-
 
-<CENTER>Analisis de Varianza y Correlación (Tabla)
+<CENTER>Analisis de Correlación (Tabla)
 ```{r, echo = FALSE, eval = TRUE}
 #Correlaciones
 
@@ -102,7 +102,13 @@ cor(data)%>%
 knitr::kable(cor(data)) #Tabla Correlaciones
 
 ```
+-(Describir e interpretar la Tabla de Correlacion)-
 
+<CENTER>Analisis de Varianza -(Tabla de Varianza entre las variables)
+```{r}
+
+```
+-(Describir e interpretar la Tabla de Varianza)-
 
 ## Results.
 
