@@ -1,9 +1,9 @@
 ---
-title: Course title
-subtitle: Lecture title
+title: Replicación Edmonson 1999
+subtitle: 
 author:
-  name: Your name
-  affiliation: University | Course code
+  name: Equipo 2
+  affiliation: Cademi
 # date: "`r format(Sys.time(), '%d %B %Y')`" ## Or "Lecture no."
 output: 
   html_document:
@@ -51,45 +51,328 @@ Data (Por el momento estara cargada en este apartado).
 ```{r, echo = FALSE, eval = TRUE, results = "hide"}
 data <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/new_data.csv?token=AQWVYHXS7QYQW5UWESIDJGC7MV63U")
 data <- read.csv(text= data, row.names = 1)
+
+data_prereggresion <- getURL("https://raw.githubusercontent.com/PabloFdezm/cademi/master/data_preregression.csv?token=AKX6XZLFYGPYPC54IADIBTK7MZMCY")
+data_prereggresion <- read.csv(text= data_prereggresion, row.names = 1)
+
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
-knitr::kable(data) #Tabla Data
+tibble::glimpse(data)
 ```
-
-## Abstract / Resumen.
-## Introduction.
-
--(Explicar las variables a evaluar, las hipotesis a comprobar)-
--(Tabla de resultados resumida (Promedios, mediana, y otros))-
-
-#### (Keywords).
 
 ## Methods.
 
-Para poner a prueba las hipotesis evaluadas en este trabajo, seguimos la metodologia de Edmonson (1999). El objetivo principal fue medir seguridad psicologica en los distintos grupos, analizar y comparar las variables independientes y dependientes y comprobar su relacion entre estos *(conocimiento, comportamiento de aprendizaje, eficacia y satisfaccion de equipo)*.
+Para poner a prueba las hipotesis evaluadas en este trabajo, seguimos la metodologia de Edmonson (1999). El objetivo principal fue medir seguridad psicologica en los distintos grupos.
 
-Estudiamos el proceso entre los estudiantes de primer año de la carrera de *Ingenieria Comercial* del año 2020, de la *Universidad Diego Portales*. Medimos datos cuantitativos en cuanto al curso de *Fundamentos de Administracion y Negocios*. Las encuestas fueron realizadas durante un lapso de 5 meses, en distintos periodos de tiempo. Estas se realizaron a traves de los docentes del curso, los cuales nos ayudaron tambien a la confeccion de las escalas y tipos de medidas. El total de estudiantes evaluados fue de 280 aproximadamente. Desde un inicio se trabajo en grupos pequeños de 5 a 6 estudiantes. Se recopilaron 48 equipos en total, los cuales fueron evaluados en conjunto durante todo el proceso, sin ninguna modificacion o salida de alguno de estos a lo largo del periodo establecido.
+Estudiamos la interacción entre los estudiantes de primer año de la carrera de *Ingenieria Comercial* del año 2020, de la *Universidad Diego Portales*. Medimos datos cuantitativos respecto al curso *Fundamentos de Administracion y Negocios*. Las encuestas fueron realizadas durante un lapso de 5 meses, en distintos periodos de tiempo. Estas se realizaron a traves de los docentes del curso, los cuales nos ayudaron tambien a la confeccion de las escalas y tipos de medidas. El total de estudiantes evaluados fue de 280 aproximadamente. Se trabajo en grupos pequeños de 5 a 6 estudiantes. Se recopilaron 48 equipos en total, los cuales fueron evaluados en conjunto durante todo el proceso, sin ninguna modificacion o salida de alguno de estos a lo largo del periodo establecido.
 
-Al ser un curso de primer año universitario, nadie tenia conocimientos teoricos previos en cuanto a trabajo en equipo, liderazgo o administracion. Ademas, recalcar que ninguno de los estudiantes mantenia una relacion estrecha entre sus pares o academicos de la facultad, previa la investigacion realizada. El unico medio de interaccion que tuvimos con los estudiantes a lo largo del proyecto fueron netamente las respuestas otorgadas a traves de las encuestas.
+Al ser un curso de primer año universitario, ninguno de los participantes tenia conocimientos teoricos previos en cuanto a trabajo en equipo, liderazgo o administracion. Ademas, recalcar que ninguno de los estudiantes mantenia una relacion estrecha entre sus pares o academicos de la facultad, previa la investigacion realizada. El unico medio de interaccion que tuvimos con los estudiantes a lo largo del proyecto fueron netamente las respuestas otorgadas a traves de las encuestas.
 
 ### Process
 
-Analizamos detalladamente el trabajo realizado por Edmonson(1999), durante un periodo de 5 meses. Mientras se realizaba este proceso, se efectuo tambien la recopilacion de datos a travez de las encuestas realizadas a los estudiantes.
-
 Lo primero fue evaluar las hipotesis a comprobar dentro del proyecto (H1, H2 y H3) -(Insertar referencia a la tabla con las hipotesis)-. Para ello, se diseñaron ciertas preguntas con ayuda de los docentes, acorde a las escalas ya antes previstas -(Insertar referencia a la tabla con las preguntas)-. De esta forma, los alumnos fueron encuentados a lo largo del tiempo establecido, 5 meses (t). En total se realizaron 3 periodos de encuestas que contenian este tipo de preguntas.
 
-### Measurements
+Posterior a eso, analizamos los datos provenientes a las respuestas. Medimos el nivel de consistencia de las preguntas via el Alfa de Chronbach. Para esto, diseñamos un algoritmo que expulsara las preguntas que provocaran un Alfa de Chronbach inferior a 0.7.
 
-Alfa de Chronbach e intercorrelaciones entre las variables de las encuestas a nivel de grupo. -(¿Lo dejamos?)-. -(variables que se separaron en el Alfa de Chronbach)-. Usamos la encuesta de escalas desarrollado por -(Nombre de la Encuesta)-. 
+```{r echo = T,eval=FALSE,  results = 'hide'}
+#1) Psysafety 
 
-<CENTER>Alfa de Chronbach. (Tabla) -(Describir e interpretar la Tabla de Alfa)-
+psysafe <- data %>%
+  select(starts_with("psy"))
+lim <- 0.7
 
-<CENTER>Analisis de Correlación (Tabla)
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(psysafe)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  psysafe <- psysafe %>%
+    select(-eliminacion)
+  #
+  
+}
+
+psysafe_select <- colnames(psysafe)
+
+psysafe <- data %>%
+  select(equipoID, all_of(psysafe_select))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(psysafe=round(mean(value),2))
+
+#2)Learn Behavior
+
+learnb <- data %>%
+  select(starts_with("learn"))
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(learnb)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  learnb <- learnb %>%
+    select(-eliminacion)
+  #
+  
+}
+
+learnb_select <- colnames(learnb)
+
+learnb <- data %>%
+  select(equipoID, all_of(learnb_select))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(learnbehavior=round(mean(value),2))
+
+#3)Efficacy 
+
+efficacy <- data %>%
+  select(starts_with("eff"))
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(efficacy)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  efficacy <- efficacy %>%
+    select(-eliminacion)
+  #
+  
+}
+efficacy_select <- colnames(efficacy)
+
+efficacy <- data %>%
+  select(equipoID, all_of(efficacy_select) )%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(efficacy=round(mean(value),2))
+
+#4) Team Satisfaction
+
+team_s <- data %>%
+  select(starts_with("team"))
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(team_s)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  team_s <- team_s %>%
+    select(-eliminacion)
+  #
+  
+}
+team_s_select <- colnames(team_s)
+
+team_s <- data %>%
+  select(equipoID, all_of(team_s_select) )%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(teamsatisfaction=round(mean(value),2))
+
+#5)Performance
+
+performance <- data %>%
+  select(equipoID, starts_with("per"))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(performance=round(mean(value),2))
+
+```
+
+```{r echo = F,eval=T,  results = 'hide',error=FALSE, warning=FALSE, message=FALSE}
+
+#1) Psysafety 
+
+psysafe <- data %>%
+  select(starts_with("psy"))
+lim <- 0.7
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(psysafe)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  psysafe <- psysafe %>%
+    select(-eliminacion)
+  #
+  
+}
+
+psysafe_select <- colnames(psysafe)
+
+psysafe <- data %>%
+  select(equipoID, all_of(psysafe_select))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(psysafe=round(mean(value),2))
+
+#2)Learn Behavior
+
+learnb <- data %>%
+  select(starts_with("learn"))
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(learnb)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  learnb <- learnb %>%
+    select(-eliminacion)
+  #
+  
+}
+
+learnb_select <- colnames(learnb)
+
+learnb <- data %>%
+  select(equipoID, all_of(learnb_select))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(learnbehavior=round(mean(value),2))
+
+#3)Efficacy 
+
+efficacy <- data %>%
+  select(starts_with("eff"))
+
+eliminacion <- 0
+
+while ( eliminacion < lim ) {
+  
+  alfa <- alpha(efficacy)
+  alfa_raw <- alfa$total$raw_alpha
+  
+  alfa_drop <- alfa$alpha.drop %>%
+    as.data.frame()
+  
+  # Strategy
+  eliminacion <- alfa_drop %>%
+    select(raw_alpha)%>%
+    filter(alfa_raw < raw_alpha)%>%
+    row.names()%>%
+    head(1)
+  efficacy <- efficacy %>%
+    select(-eliminacion)
+  #
+  
+}
+efficacy_select <- colnames(efficacy)
+
+efficacy <- data %>%
+  select(equipoID, all_of(efficacy_select) )%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(efficacy=round(mean(value),2))
+
+#4) Team Satisfaction
+
+team_s <- data %>%
+  select(starts_with("team"))
+
+team_s_select <- colnames(team_s[,1:4])
+
+team_s <- data %>%
+  select(equipoID, all_of(team_s_select) )%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(teamsatisfaction=round(mean(value),2))
+
+#5)Performance
+
+performance <- data %>%
+  select(equipoID, starts_with("per"))%>%
+  pivot_longer(-equipoID)%>%
+  group_by(equipoID)%>%
+  summarize(performance=round(mean(value),2))
+
+
+```
+
+
+Junto con lo anterior, agregamos las variables que fueron medidas en distintas preguntas.
+
+```{r echo = F,eval=T,error=FALSE, warning=FALSE, message=FALSE}
+data_2 <- full_join(performance, psysafe)
+data_2 <- full_join(data_2,team_s)
+data_2 <- full_join(data_2,learnb)
+data_2 <- full_join(data_2,efficacy)
+tibble::glimpse(data_2)
+```
+
+
+Examinamos como correlacionan las variables:
 ```{r, echo = FALSE, eval = TRUE}
 #Correlaciones
 
-cor(data)%>%
+cor(data_prereggresion)%>%
   ggcorrplot::ggcorrplot(hc.order = TRUE, 
                          type = "lower", 
                          lab = TRUE, 
@@ -99,16 +382,9 @@ cor(data)%>%
                          title="Coeficientes de correlación", 
                          ggtheme=theme_bw)
 
-knitr::kable(cor(data)) #Tabla Correlaciones
-
 ```
--(Describir e interpretar la Tabla de Correlacion)-
 
-<CENTER>Analisis de Varianza -(Tabla de Varianza entre las variables)
-```{r}
 
-```
--(Describir e interpretar la Tabla de Varianza)-
 
 ## Results.
 
